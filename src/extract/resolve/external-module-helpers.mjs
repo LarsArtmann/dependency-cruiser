@@ -33,7 +33,7 @@ import { isScoped, isRelativeModuleName } from "./module-classifiers.mjs";
  * @return {string}         the module name root
  */
 export function getPackageRoot(pModule) {
-  if (!Boolean(pModule) || isRelativeModuleName(pModule)) {
+  if (!pModule || isRelativeModuleName(pModule)) {
     return pModule;
   }
 
@@ -131,7 +131,7 @@ export function dependencyIsDeprecated(
     pResolveOptions
   );
 
-  if (Boolean(lPackageJson)) {
+  if (lPackageJson) {
     lReturnValue = has(lPackageJson, "deprecated") && lPackageJson.deprecated;
   }
   return lReturnValue;

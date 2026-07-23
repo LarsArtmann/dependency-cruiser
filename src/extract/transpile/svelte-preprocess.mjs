@@ -32,9 +32,9 @@ function composeTranspilerOptions(pTranspilerOptions) {
   return {
     ...pTranspilerOptions,
     tsConfig: {
-      ...(pTranspilerOptions?.tsConfig ?? {}),
+      ...pTranspilerOptions?.tsConfig,
       options: {
-        ...(pTranspilerOptions?.tsConfig?.options ?? {}),
+        ...pTranspilerOptions?.tsConfig?.options,
         importsNotUsedAsValues: "preserve",
         jsx: "preserve",
       },

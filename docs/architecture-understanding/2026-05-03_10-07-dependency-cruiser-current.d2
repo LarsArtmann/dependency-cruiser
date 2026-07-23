@@ -1,0 +1,130 @@
+direction: down
+
+title: {
+  near: top-center
+  shape: text
+  style.font-size: 28
+  label: Dependency Cruiser — Current Architecture
+}
+
+style: {
+  fill: white
+  stroke: "#333"
+  font-size: 14
+  shadow: true
+}
+
+CLI: {
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  bin/dependency-cruise.mjs: {shape: rectangle}
+  bin/depcruise-fmt.mjs: {shape: rectangle}
+  bin/depcruise-baseline.mjs: {shape: rectangle}
+  bin/wrap-stream-in-html.mjs: {shape: rectangle}
+}
+
+src/cli: {
+  shape: rectangle
+  style.fill: "#fff3e0"
+  index.mjs: {shape: rectangle}
+  normalize-cli-options.mjs: {shape: rectangle}
+  init-config/: {shape: rectangle}
+  listeners/: {shape: rectangle}
+}
+
+src/main: {
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  cruise.mjs: {shape: rectangle}
+  format.mjs: {shape: rectangle}
+  options/: {shape: rectangle}
+  rule-set/: {shape: rectangle}
+}
+
+src/extract: {
+  shape: rectangle
+  style.fill: "#fce4ec"
+  index.mjs: {shape: rectangle}
+  get-dependencies.mjs: {shape: rectangle}
+  parse/: {
+    shape: rectangle
+    to-javascript-ast.mjs: {shape: rectangle}
+    to-typescript-ast.mjs: {shape: rectangle}
+    to-swc-ast.mjs: {shape: rectangle}
+  }
+  ast-extractors/: {
+    shape: rectangle
+    extract-es6-deps.mjs: {shape: rectangle}
+    extract-cjs-deps.mjs: {shape: rectangle}
+    extract-amd-deps.mjs: {shape: rectangle}
+    extract-typescript-deps.mjs: {shape: rectangle}
+    extract-swc-deps.mjs: {shape: rectangle}
+  }
+  resolve/: {shape: rectangle}
+  transpile/: {shape: rectangle}
+}
+
+src/enrich: {
+  shape: rectangle
+  style.fill: "#f3e5f5"
+  index.mjs: {shape: rectangle}
+  derive/: {
+    shape: rectangle
+    circular.mjs: {shape: rectangle}
+    reachable.mjs: {shape: rectangle}
+    orphan/: {shape: rectangle}
+    dependents/: {shape: rectangle}
+    metrics/: {shape: rectangle}
+    folders/: {shape: rectangle}
+  }
+  summarize/: {shape: rectangle}
+  soften-known-violations.mjs: {shape: rectangle}
+}
+
+src/validate: {
+  shape: rectangle
+  style.fill: "#fff9c4"
+  index.mjs: {shape: rectangle}
+  match-module-rule.mjs: {shape: rectangle}
+  match-dependency-rule.mjs: {shape: rectangle}
+  match-folder-dependency-rule.mjs: {shape: rectangle}
+}
+
+src/report: {
+  shape: rectangle
+  style.fill: "#e0f7fa"
+  index.mjs: {shape: rectangle}
+  dot/: {shape: rectangle}
+  mermaid.mjs: {shape: rectangle}
+  err.mjs: {shape: rectangle}
+  html/: {shape: rectangle}
+  json.mjs: {shape: rectangle}
+  plugins.mjs: {shape: rectangle}
+  "17 more reporters": {shape: text}
+}
+
+src/cache: {
+  shape: rectangle
+  style.fill: "#efebe9"
+  cache.mjs: {shape: rectangle}
+  metadata-strategy.mjs: {shape: rectangle}
+  content-strategy.mjs: {shape: rectangle}
+}
+
+EventBus: {
+  shape: hexagon
+  style.fill: "#bbdefb"
+  src/utl/bus.mjs: {shape: rectangle}
+}
+
+CLI -> src/cli: "parse args"
+src/cli -> src/main: "cruise()/format()"
+src/main -> src/extract: "extract modules"
+src/extract -> src/extract.parse: "parse AST"
+src/extract.parse -> src/extract.ast-extractors: "extract deps"
+src.main -> src/enrich: "enrich result"
+src.enrich -> src/validate: "validate rules"
+src.main -> src/report: "render output"
+src.main -> src/cache: "read/write cache"
+src.cli -> EventBus: "subscribe"
+src.main -> EventBus: "emit progress"

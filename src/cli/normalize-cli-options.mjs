@@ -1,4 +1,4 @@
-import { accessSync, R_OK } from "node:fs";
+import { accessSync, constants as fsConstants } from "node:fs";
 import { isAbsolute } from "node:path";
 import set from "lodash/set.js";
 import get from "lodash/get.js";
@@ -45,7 +45,7 @@ function normalizeConfigFileName(pCliOptions, pConfigWrapperName, pDefault) {
 
 function fileExists(pFileName) {
   try {
-    accessSync(pFileName, R_OK);
+    accessSync(pFileName, fsConstants.R_OK);
     return true;
   } catch (pError) {
     return false;

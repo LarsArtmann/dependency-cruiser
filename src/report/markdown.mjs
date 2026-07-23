@@ -111,7 +111,7 @@ function formatViolations(pViolations, pIncludeIgnoredInDetails) {
  */
 // eslint-disable-next-line complexity, max-statements
 function report(pResults, pOptions) {
-  const lOptions = { ...REPORT_DEFAULTS, ...(pOptions || {}) };
+  const lOptions = { ...REPORT_DEFAULTS, ...pOptions };
   let lReturnValue = "";
 
   if (lOptions.showTitle) {

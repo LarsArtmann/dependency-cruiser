@@ -155,7 +155,7 @@ function hashModuleNames(pModules, pMinify) {
  * @param {import("../../types/reporter-options").IMermaidReporterOptions} pOptions
  */
 function renderMermaidSource(pCruiseResult, pOptions) {
-  const lOptions = { ...REPORT_DEFAULTS, ...(pOptions || {}) };
+  const lOptions = { ...REPORT_DEFAULTS, ...pOptions };
   const lNamesHashMap = hashModuleNames(pCruiseResult.modules, lOptions.minify);
   const lSubgraphs = convertSubgraphSources(pCruiseResult, lNamesHashMap);
   const lEdges = convertEdgeSources(pCruiseResult, lNamesHashMap);

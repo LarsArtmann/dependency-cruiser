@@ -92,7 +92,7 @@ function setUpListener(pCruiseOptions) {
 
   const lListenerFunction = lString2Listener.get(lListenerID);
   /* c8 ignore next 6 */
-  if (Boolean(lListenerFunction)) {
+  if (lListenerFunction) {
     lListenerFunction(
       bus,
       pCruiseOptions?.ruleSet?.options?.progress?.maximumLevel ?? INFO

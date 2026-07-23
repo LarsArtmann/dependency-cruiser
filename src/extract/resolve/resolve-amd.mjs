@@ -1,4 +1,4 @@
-import { accessSync, R_OK } from "node:fs";
+import { accessSync, constants as fsConstants } from "node:fs";
 import { relative, join } from "node:path";
 import { builtinModules } from "node:module";
 import memoize from "lodash/memoize.js";
@@ -14,7 +14,7 @@ const REALLY_BUILTIN_MODULES = builtinModules.concat(["test", "node:test"]);
 
 const fileExists = memoize((pFile) => {
   try {
-    accessSync(pFile, R_OK);
+    accessSync(pFile, fsConstants.R_OK);
   } catch (pError) {
     return false;
   }

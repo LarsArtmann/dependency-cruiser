@@ -265,7 +265,7 @@ describe("[I] extract/resolve/index - typescript", () => {
   it("resolves triple slash directives - external", async () => {
     process.chdir("test/extract/resolve/__mocks__/triple-slash-directives");
     deepEqual(
-      await await wrappedResolve({
+      await wrappedResolve({
         module: "something",
         moduleSystem: "tsd",
       }),

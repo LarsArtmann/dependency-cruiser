@@ -1,0 +1,150 @@
+direction: down
+
+title: {
+  near: top-center
+  shape: text
+  style.font-size: 28
+  label: Dependency Cruiser — Improved Architecture
+}
+
+style: {
+  fill: white
+  stroke: "#333"
+  font-size: 14
+  shadow: true
+}
+
+CLI: {
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  bin/*: {shape: text}
+}
+
+Orchestration: {
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  Pipeline: {
+    shape: rectangle
+    NormalizeOptions: {shape: rectangle}
+    Extract: {shape: rectangle}
+    Enrich: {shape: rectangle}
+    Validate: {shape: rectangle}
+    Filter: {shape: rectangle}
+    Report: {shape: rectangle}
+
+    NormalizeOptions -> Extract: "ICruiseOptions"
+    Extract -> Enrich: "IModule[]"
+    Enrich -> Validate: "IModule[] + violations"
+    Validate -> Filter: "ICruiseResult"
+    Filter -> Report: "ICruiseResult"
+  }
+  Middleware: {
+    shape: diamond
+    style.fill: "#fff9c4"
+  }
+}
+
+Extraction: {
+  shape: rectangle
+  style.fill: "#fce4ec"
+  ParserRegistry: {
+    shape: rectangle
+    style.fill: "#f8bbd0"
+    "acorn": {shape: rectangle}
+    "tsc": {shape: rectangle}
+    "swc": {shape: rectangle}
+  }
+  ASTExtractor: {
+    shape: rectangle
+    "es6": {shape: rectangle}
+    "cjs": {shape: rectangle}
+    "amd": {shape: rectangle}
+    "typescript": {shape: rectangle}
+  }
+  Resolver: {
+    shape: rectangle
+    "enhanced-resolve": {shape: rectangle}
+    "cjs": {shape: rectangle}
+    "amd": {shape: rectangle}
+  }
+  Transpiler: {
+    shape: rectangle
+    "babel": {shape: rectangle}
+    "coffeescript": {shape: rectangle}
+    "svelte": {shape: rectangle}
+    "vue": {shape: rectangle}
+  }
+}
+
+Enrichment: {
+  shape: rectangle
+  style.fill: "#f3e5f5"
+  GraphAnalysis: {
+    shape: rectangle
+    "cycles": {shape: rectangle}
+    "orphans": {shape: rectangle}
+    "dependents": {shape: rectangle}
+    "reachability": {shape: rectangle}
+  }
+  Metrics: {
+    shape: rectangle
+    "instability": {shape: rectangle}
+    "couplings": {shape: rectangle}
+  }
+  "Folder aggregation": {shape: rectangle}
+}
+
+Validation: {
+  shape: rectangle
+  style.fill: "#fff9c4"
+  RuleEngine: {
+    shape: rectangle
+    "forbidden": {shape: rectangle}
+    "allowed": {shape: rectangle}
+    "required": {shape: rectangle}
+    "folder-scope": {shape: rectangle}
+  }
+}
+
+Reporting: {
+  shape: rectangle
+  style.fill: "#e0f7fa"
+  ReporterRegistry: {
+    shape: rectangle
+    "dot/*": {shape: rectangle}
+    "mermaid": {shape: rectangle}
+    "err/*": {shape: rectangle}
+    "plugin:*": {shape: rectangle}
+    "14 more": {shape: text}
+  }
+}
+
+Infrastructure: {
+  shape: rectangle
+  style.fill: "#efebe9"
+  EventBus: {shape: hexagon}
+  Cache: {
+    shape: rectangle
+    "metadata strategy": {shape: rectangle}
+    "content strategy": {shape: rectangle}
+  }
+  AsyncIO: {
+    shape: rectangle
+    style.fill: "#c8e6c9"
+    "readFile (async)": {shape: rectangle}
+    "readdir (async)": {shape: rectangle}
+    "streaming": {shape: rectangle}
+  }
+}
+
+CLI -> Orchestration.Pipeline: "parse args"
+Orchestration.Pipeline -> Orchestration.Middleware: "hooks"
+Orchestration.Pipeline -> Extraction: "stage 1"
+Extraction.ParserRegistry -> Extraction.ASTExtractor: "parse"
+Extraction.Transpiler -> Extraction.ParserRegistry: "pre-process"
+Orchestration.Pipeline -> Enrichment: "stage 2"
+Enrichment -> Validation: "stage 3"
+Orchestration.Pipeline -> Reporting: "stage 4"
+Orchestration -> Infrastructure.EventBus: "progress"
+Orchestration -> Infrastructure.Cache: "persist"
+Extraction -> Infrastructure.AsyncIO: "non-blocking"

@@ -99,7 +99,7 @@ function filterNewScriptEntries(pExistingRunScripts, pAdditionalRunScripts) {
 }
 
 export function addRunScriptsToManifest(pManifest, pAdditionalRunScripts) {
-  const lManifest = { ...(pManifest || {}) };
+  const lManifest = { ...pManifest };
   const lExistingRunScripts = lManifest.scripts || {};
 
   // This could instead simply be done with

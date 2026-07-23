@@ -169,7 +169,7 @@ function setModuleType(pTestPairs, pModuleType) {
       /{{moduleType}}/g,
       pModuleType,
     );
-    if (Boolean(pTestPair.options.moduleSystems)) {
+    if (pTestPair.options.moduleSystems) {
       lReturnValue.options.moduleSystems =
         pTestPair.options.moduleSystems.replace(/{{moduleType}}/g, pModuleType);
     }

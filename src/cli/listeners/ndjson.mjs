@@ -63,7 +63,7 @@ function getProgressLine(pMessage, pState, pLevel, pMaxLevel) {
 
 function getProgressWriter(pStream, pState, pMaxLevel) {
   return (pMessage, pOptions) => {
-    const lOptions = { level: SUMMARY, ...(pOptions || {}) };
+    const lOptions = { level: SUMMARY, ...pOptions };
 
     pStream.write(getProgressLine(pMessage, pState, lOptions.level, pMaxLevel));
   };

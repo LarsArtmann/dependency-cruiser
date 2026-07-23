@@ -28,7 +28,7 @@ function getCompilerOptions(pFlavor, pTSConfig) {
     // compatibility.
     target: "es2015",
     ...lCompilerOptions,
-    ...(pTSConfig?.options ?? {}),
+    ...pTSConfig?.options,
   };
 }
 
@@ -38,7 +38,7 @@ export default function typescriptWrap(pFlavor) {
 
     transpile: (pSource, _pFileName, pTranspileOptions = {}) =>
       typescript.transpileModule(pSource, {
-        ...(pTranspileOptions.tsConfig || {}),
+        ...pTranspileOptions.tsConfig,
         compilerOptions: getCompilerOptions(
           pFlavor,
           pTranspileOptions.tsConfig || {}

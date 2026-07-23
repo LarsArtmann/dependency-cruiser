@@ -10,7 +10,7 @@ const DEFAULT_SCOPE = "module";
 function normalizeSeverity(pSeverity) {
   const lSeverity = pSeverity ? pSeverity : DEFAULT_SEVERITY;
 
-  return Boolean(lSeverity.match(VALID_SEVERITIES))
+  return lSeverity.match(VALID_SEVERITIES)
     ? lSeverity
     : DEFAULT_SEVERITY;
 }

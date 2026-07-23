@@ -3,7 +3,7 @@ import { getHeader, getProgressLine, getEndText } from "./handlers.mjs";
 
 function getHeaderWriter(pStream, pMaxLevel) {
   return (_pMessage, pOptions) => {
-    const lOptions = { level: SUMMARY, ...(pOptions || {}) };
+    const lOptions = { level: SUMMARY, ...pOptions };
 
     pStream.write(getHeader(lOptions.level, pMaxLevel));
   };
@@ -11,7 +11,7 @@ function getHeaderWriter(pStream, pMaxLevel) {
 
 function getProgressWriter(pStream, pState, pMaxLevel) {
   return (pMessage, pOptions) => {
-    const lOptions = { level: SUMMARY, ...(pOptions || {}) };
+    const lOptions = { level: SUMMARY, ...pOptions };
     const lProgressLine = getProgressLine(
       pMessage,
       pState,

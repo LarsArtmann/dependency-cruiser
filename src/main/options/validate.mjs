@@ -79,7 +79,7 @@ function validatePathsSafety(pFilterOption) {
 export function validateCruiseOptions(pOptions) {
   let lReturnValue = {};
 
-  if (Boolean(pOptions)) {
+  if (pOptions) {
     // necessary because can slip through the cracks when passed as a cli parameter
     validateSystems(pOptions.moduleSystems);
 

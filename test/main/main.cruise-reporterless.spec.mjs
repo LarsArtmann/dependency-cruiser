@@ -33,7 +33,7 @@ const folderFixtures = requireJSON(
 const ajv = new Ajv();
 
 function runFixture(pFixture) {
-  if (!Boolean(pFixture.ignore)) {
+  if (!pFixture.ignore) {
     it(pFixture.title, async () => {
       let lResult = await cruise(
         [pFixture.input.fileName],

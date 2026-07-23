@@ -269,7 +269,7 @@ export default function extractTypeScriptDependencies(
   pTypeScriptAST,
   pExoticRequireStrings
 ) {
-  return Boolean(typescript)
+  return typescript
     ? extractImportsAndExports(pTypeScriptAST)
         .concat(extractImportEquals(pTypeScriptAST))
         .concat(extractTripleSlashDirectives(pTypeScriptAST))

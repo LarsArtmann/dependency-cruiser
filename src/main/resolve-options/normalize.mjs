@@ -162,7 +162,7 @@ export default async function normalizeResolveOptions(
       combinedDependencies: pOptions?.combinedDependencies ?? false,
       resolveLicenses: ruleSetHasLicenseRule(lRuleSet),
       resolveDeprecations: ruleSetHasDeprecationRule(lRuleSet),
-      ...(pResolveOptions || {}),
+      ...pResolveOptions,
     },
     pTSConfig || {},
     pOptions?.enhancedResolveOptions ?? {}

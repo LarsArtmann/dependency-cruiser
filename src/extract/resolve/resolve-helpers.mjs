@@ -18,7 +18,7 @@ export function addLicenseAttribute(
   ) {
     const lLicense = getLicense(pModuleName, fileDirectory, pResolveOptions);
 
-    if (Boolean(lLicense)) {
+    if (lLicense) {
       lReturnValue.license = lLicense;
     }
   }

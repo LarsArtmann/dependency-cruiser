@@ -9,7 +9,7 @@ function normalizeParameters(pParameters) {
     barSize: 10,
     block: figures.squareSmallFilled,
     blank: figures.squareSmall,
-    ...(pParameters || {}),
+    ...pParameters,
   };
 }
 function getPercentageBar(pPercentage, pParameters) {
@@ -28,7 +28,7 @@ function getProgressMessageWriter(pStream, pState, pMaxLogLevel) {
     const lOptions = {
       level: SUMMARY,
       complete: pState.complete,
-      ...(pOptions || {}),
+      ...pOptions,
     };
 
     pState.complete = lOptions.complete;
